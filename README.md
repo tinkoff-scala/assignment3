@@ -1,7 +1,7 @@
 # Movies Database sorting
 We are building a movies database service. Our technical department told us that one of the main features of our service should be flexible movies sorting.
 To start with, we have a `Movie` data type which has a `name`, `releaseDate` and `rating`. 
-Our business department want users to have an ability to specify a sorting order for each of the the fields.
+Our business department want users to have an ability to specify a sorting order for each of the fields.
 ## Part 1
 Implement an Ordering constructor based on the provided Order type for each of the fields
 ## Part 2
