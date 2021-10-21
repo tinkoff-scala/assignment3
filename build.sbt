@@ -8,6 +8,7 @@ lazy val root = (project in file("."))
     name := "scala-template",
     libraryDependencies ++= Seq(
       scalaTest % Test,
-      scalaCheck % Test
+      scalaCheck % Test,
+      scalaTestPlus % Test
     )
   )
