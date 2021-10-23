@@ -32,8 +32,8 @@ class MovieOrderingSpec extends AnyFlatSpec with Matchers with ScalaCheckDrivenP
   "Ascending sort order on all fields" should "be identical to natural ordering" in {
     val providedOrdering: Ordering[Movie] = MovieOrder.orderingFrom(Order.Ascending, Order.Ascending, Order.Ascending)
 
-    forAll(Gen.listOf(movieGen)) { cats =>
-      cats.sorted(providedOrdering) should equal(cats.sorted(naturalOrdering))
+    forAll(Gen.listOf(movieGen)) { movies =>
+      movies.sorted(providedOrdering) should equal(movies.sorted(naturalOrdering))
     }
   }
 
@@ -41,36 +41,36 @@ class MovieOrderingSpec extends AnyFlatSpec with Matchers with ScalaCheckDrivenP
     val providedOrdering: Ordering[Movie] =
       MovieOrder.orderingFrom(Order.Descending, Order.Descending, Order.Descending)
 
-    forAll(Gen.listOf(movieGen)) { cats =>
-      cats.sorted(providedOrdering) should equal(cats.sorted(naturalOrdering.reverse))
+    forAll(Gen.listOf(movieGen)) { movies =>
+      movies.sorted(providedOrdering) should equal(movies.sorted(naturalOrdering.reverse))
     }
   }
 
   "Keeping sort order on all fields" should "not change the order of elements" in {
     val providedOrdering: Ordering[Movie] = MovieOrder.orderingFrom(Order.Identity, Order.Identity, Order.Identity)
 
-    forAll(Gen.listOf(movieGen)) { cats =>
-      cats.sorted(providedOrdering) should equal(cats)
+    forAll(Gen.listOf(movieGen)) { movies =>
+      movies.sorted(providedOrdering) should equal(movies)
     }
   }
 
   "Ascendingending sort order only by the \"name\" field" should "be the same as natural ordering by that field" in {
-    val providedOrdering: Ordering[Movie] = MovieOrder.orderingFrom(Order.Identity, Order.Ascending, Order.Identity)
+    val providedOrdering: Ordering[Movie] = MovieOrder.orderingFrom(Order.Ascending, Order.Identity, Order.Identity)
 
     val fieldOrdering: Ordering[Movie] = Ordering.by(_.name)
 
-    forAll(Gen.listOf(movieGen)) { cats =>
-      cats.sorted(providedOrdering) should equal(cats.sorted(fieldOrdering))
+    forAll(Gen.listOf(movieGen)) { movies =>
+      movies.sorted(providedOrdering) should equal(movies.sorted(fieldOrdering))
     }
   }
 
   "Descending sort order only by the \"name\" field" should "be the same as reversed natural ordering by that field" in {
-    val providedOrdering: Ordering[Movie] = MovieOrder.orderingFrom(Order.Identity, Order.Descending, Order.Identity)
+    val providedOrdering: Ordering[Movie] = MovieOrder.orderingFrom(Order.Descending, Order.Identity, Order.Identity)
 
     val fieldOrdering: Ordering[Movie] = Ordering.by[Movie, String](_.name).reverse
 
-    forAll(Gen.listOf(movieGen)) { cats =>
-      cats.sorted(providedOrdering) should equal(cats.sorted(fieldOrdering))
+    forAll(Gen.listOf(movieGen)) { movies =>
+      movies.sorted(providedOrdering) should equal(movies.sorted(fieldOrdering))
     }
   }
 }
